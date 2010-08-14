@@ -1,5 +1,5 @@
 Name:           ige-mac-integration
-Version:        0.0.0.1
+Version:        0.0.0.2
 License:        LGPL-2.1
 License-file:   COPYING
 Copyright:      (c) 2001-2010 The Gtk2Hs Team
@@ -10,7 +10,7 @@ Cabal-Version:  >= 1.6.0
 Stability:      provisional
 homepage:       http://www.haskell.org/gtk2hs/
 bug-reports:    http://hackage.haskell.org/trac/gtk2hs/
-Synopsis:       Binding to the ige-mac-integration library.
+Synopsis:       Bindings for the Gtk/OS X integration library.
 Description:    ige-mac-integration helps integrate Gtk applications with the native Mac
                 desktop and make it feel more like a Mac application.
 
@@ -38,7 +38,7 @@ Source-Repository head
 
 Library
         build-depends:  base >= 4 && < 5, array, containers, haskell98, mtl,
-                        glib  >= 0.11 && < 0.12, 
+                        glib  >= 0.11 && < 0.12,
                         gtk   >= 0.11 && < 0.12
 						
         build-tools:    gtk2hsC2hs, gtk2hsHookGenerator, gtk2hsTypeGen
@@ -47,7 +47,7 @@ Library
           Graphics.UI.Gtk.OSX
           Graphics.UI.Gtk.OSX.Application
         other-modules:
-          Graphics.UI.Gtk.OSX.Types		  
+          Graphics.UI.Gtk.OSX.Types
           Graphics.UI.Gtk.OSX.Signals
 		  
         extensions:     ForeignFunctionInterface

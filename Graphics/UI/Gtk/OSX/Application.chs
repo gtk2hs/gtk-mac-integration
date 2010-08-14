@@ -53,7 +53,12 @@ module Graphics.UI.Gtk.OSX.Application (
   applicationGetResourcePath,
   applicationGetExecutablePath,
   applicationGetBundleId,
-  applicationGetBundleInfo
+  applicationGetBundleInfo,
+  didBecomeActive,
+  willResignActive,
+  blockTermination,
+  willTerminate,
+  openFile
  ) where
 
 import Control.Monad	(liftM)
@@ -209,4 +214,28 @@ applicationGetBundleInfo self key =
     withCString key $ \keyPtr ->
     {#call unsafe gtk_osxapplication_get_bundle_info#} (toApplication self) keyPtr >>= peekCString
 
+-- |
+--
+didBecomeActive :: ApplicationClass self => Signal self (IO ())
+didBecomeActive = Signal (connect_NONE__NONE "NSApplicationDidBecomeActive")
+
+-- |
+--
+willResignActive :: ApplicationClass self => Signal self (IO ())
+willResignActive = Signal (connect_NONE__NONE "NSApplicationWillResignActive")
+
+-- |
+--
+blockTermination :: ApplicationClass self => Signal self (IO Bool)
+blockTermination = Signal (connect_NONE__BOOL "NSApplicationBlockTermination")
+
+-- |
+--
+willTerminate :: ApplicationClass self => Signal self (IO ())
+willTerminate = Signal (connect_NONE__NONE "NSApplicationWillTerminate")
+
+-- |
+--
+openFile :: ApplicationClass self => Signal self (String -> IO ())
+openFile = Signal (connect_STRING__NONE "NSApplicationOpenFile")
 
