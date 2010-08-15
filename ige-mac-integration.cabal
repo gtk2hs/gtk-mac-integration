@@ -13,6 +13,7 @@ bug-reports:    http://hackage.haskell.org/trac/gtk2hs/
 Synopsis:       Bindings for the Gtk/OS X integration library.
 Description:    ige-mac-integration helps integrate Gtk applications with the native Mac
                 desktop and make it feel more like a Mac application.
+                http://sourceforge.net/apps/trac/gtk-osx/wiki/Integrate
 
 Category:       Graphics
 Tested-With:    GHC == 6.12.1
