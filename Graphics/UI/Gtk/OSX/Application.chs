@@ -185,34 +185,34 @@ applicationCancelAttentionRequest self (AttentionRequestID id) =
 
 -- |
 --
-applicationGetBundlePath :: ApplicationClass self => self -> IO String
-applicationGetBundlePath self =
-    {#call unsafe gtk_osxapplication_get_bundle_path#} (toApplication self) >>= peekCString
+applicationGetBundlePath :: IO String
+applicationGetBundlePath =
+    {#call unsafe quartz_application_get_bundle_path#} >>= peekCString
 
 -- |
 --
-applicationGetResourcePath :: ApplicationClass self => self -> IO String
-applicationGetResourcePath self =
-    {#call unsafe gtk_osxapplication_get_resource_path#} (toApplication self) >>= peekCString
+applicationGetResourcePath :: IO String
+applicationGetResourcePath =
+    {#call unsafe quartz_application_get_resource_path#} >>= peekCString
 
 -- |
 --
-applicationGetExecutablePath :: ApplicationClass self => self -> IO String
-applicationGetExecutablePath self =
-    {#call unsafe gtk_osxapplication_get_executable_path#} (toApplication self) >>= peekCString
+applicationGetExecutablePath :: IO String
+applicationGetExecutablePath =
+    {#call unsafe quartz_application_get_executable_path#} >>= peekCString
 
 -- |
 --
-applicationGetBundleId :: ApplicationClass self => self -> IO String
-applicationGetBundleId self =
-    {#call unsafe gtk_osxapplication_get_bundle_id#} (toApplication self) >>= peekCString
+applicationGetBundleId :: IO String
+applicationGetBundleId =
+    {#call unsafe quartz_application_get_bundle_id#} >>= peekCString
 
 -- |
 --
-applicationGetBundleInfo :: ApplicationClass self => self -> String -> IO String
-applicationGetBundleInfo self key =
+applicationGetBundleInfo :: String -> IO String
+applicationGetBundleInfo key =
     withCString key $ \keyPtr ->
-    {#call unsafe gtk_osxapplication_get_bundle_info#} (toApplication self) keyPtr >>= peekCString
+    {#call unsafe quartz_application_get_bundle_info#} keyPtr >>= peekCString
 
 -- |
 --

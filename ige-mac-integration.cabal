@@ -1,5 +1,5 @@
 Name:           ige-mac-integration
-Version:        0.0.0.2
+Version:        0.1.0.1
 License:        LGPL-2.1
 License-file:   COPYING
 Copyright:      (c) 2001-2010 The Gtk2Hs Team
@@ -39,8 +39,8 @@ Source-Repository head
 
 Library
         build-depends:  base >= 4 && < 5, array, containers, haskell98, mtl,
-                        glib  >= 0.11 && < 0.12,
-                        gtk   >= 0.11 && < 0.12
+                        glib  >= 0.11 && < 0.13,
+                        gtk   >= 0.11 && < 0.13
 						
         build-tools:    gtk2hsC2hs, gtk2hsHookGenerator, gtk2hsTypeGen
 						
@@ -58,5 +58,5 @@ Library
         x-Signals-Types: marshal.list
 		
         x-c2hs-Header:  hs-ige-mac-integration.h
-        pkgconfig-depends: ige-mac-integration >= 0.9.3
+        pkgconfig-depends: ige-mac-integration >= 0.9.6
 
