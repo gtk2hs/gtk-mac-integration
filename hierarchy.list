@@ -339,5 +339,5 @@
         WebKitWebResource as WebResource, webkit_web_resource_get_type if webkit
         WebKitWebWindowFeatures as WebWindowFeatures, webkit_web_window_features_get_type if webkit
 
-        GtkOSXApplication as Application, gtk_osxapplication_get_type if ige-mac-integration
+        GtkOSXApplication as Application, gtk_osxapplication_get_type if gtk-mac-integration
 

@@ -37,9 +37,7 @@ module Graphics.UI.Gtk.OSX.Application (
   applicationSetUseQuartsAccelerators,
   applicationSetMenuBar,
   applicationSyncMenuBar,
-  ApplicationMenuGroup(..),
-  applicationAddAppMenuGroup,
-  applicationAddAppMenuItem,
+  applicationInsertAppMenuItem,
   applicationSetWindowMenu,
   applicationSetHelpMenu,
   GtkOSXApplicationAttentionType(..),
@@ -115,21 +113,11 @@ applicationSyncMenuBar :: ApplicationClass self => self -> IO ()
 applicationSyncMenuBar self =
     {#call unsafe gtk_osxapplication_sync_menubar#} (toApplication self)
 
-newtype ApplicationMenuGroup = GtkOSXApplicationMenuGroup (Ptr ())
-
 -- |
 --
-applicationAddAppMenuGroup :: ApplicationClass self => self -> IO ApplicationMenuGroup
-applicationAddAppMenuGroup self = liftM GtkOSXApplicationMenuGroup $
-    {#call unsafe gtk_osxapplication_add_app_menu_group#} (toApplication self)
-
--- |
---
-applicationAddAppMenuItem :: (ApplicationClass self, MenuItemClass menuItem)
-    => self -> ApplicationMenuGroup -> menuItem -> IO ()
-applicationAddAppMenuItem self (GtkOSXApplicationMenuGroup group) menuItem =
-    {#call unsafe gtk_osxapplication_add_app_menu_item#} (toApplication self)
-        group (toMenuItem menuItem)
+applicationInsertAppMenuItem :: (ApplicationClass self, WidgetClass menu_item) => self -> menu_item -> Int -> IO ()
+applicationInsertAppMenuItem self menu_item index =
+    {#call unsafe gtk_osxapplication_insert_app_menu_item#} (toApplication self) (toWidget menu_item) (fromIntegral index)
 
 -- |
 --
