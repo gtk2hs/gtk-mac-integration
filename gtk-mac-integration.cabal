@@ -1,5 +1,5 @@
 Name:           gtk-mac-integration
-Version:        0.1.0.3
+Version:        0.1.0.4
 License:        LGPL-2.1
 License-file:   COPYING
 Copyright:      (c) 2001-2010 The Gtk2Hs Team
@@ -18,7 +18,7 @@ Description:    gtk-mac-integration helps integrate Gtk applications with the na
 Category:       Graphics
 Tested-With:    GHC == 7.2.2
 Extra-Source-Files: hs-gtk-mac-integration.h
-                    Gtk2HsSetup.hs
+                    SetupWrapper.hs SetupMain.hs Gtk2HsSetup.hs
                     marshal.list
                     hierarchy.list
 
@@ -42,7 +42,8 @@ Library
                         glib  >= 0.11 && < 0.13,
                         gtk   >= 0.11 && < 0.13
 
-        build-tools:    gtk2hsC2hs, gtk2hsHookGenerator, gtk2hsTypeGen
+        build-tools:    gtk2hsC2hs >= 0.13.5,
+                        gtk2hsHookGenerator, gtk2hsTypeGen
 
         exposed-modules:
           Graphics.UI.Gtk.OSX
@@ -52,6 +53,8 @@ Library
           Graphics.UI.Gtk.OSX.Signals
 
         extensions:     ForeignFunctionInterface
+
+        include-dirs:   .
 
         x-Signals-File:  Graphics/UI/Gtk/OSX/Signals.chs
         x-Signals-Modname: Graphics.UI.Gtk.OSX.Signals
