@@ -1,5 +1,5 @@
 Name:           gtk-mac-integration
-Version:        0.1.0.4
+Version:        0.2.0.0
 License:        LGPL-2.1
 License-file:   COPYING
 Copyright:      (c) 2001-2010 The Gtk2Hs Team
@@ -61,5 +61,5 @@ Library
         x-Signals-Types: marshal.list
 
         x-c2hs-Header:  hs-gtk-mac-integration.h
-        pkgconfig-depends: gtk-mac-integration >= 0.9.6
+        pkgconfig-depends: gtk-mac-integration >= 2.0.0
 

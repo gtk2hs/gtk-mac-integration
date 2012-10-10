@@ -33,14 +33,13 @@ module Graphics.UI.Gtk.OSX.Application (
 
   applicationNew,
   applicationReady,
-  applicationCleanup,
   applicationSetUseQuartsAccelerators,
   applicationSetMenuBar,
   applicationSyncMenuBar,
   applicationInsertAppMenuItem,
   applicationSetWindowMenu,
   applicationSetHelpMenu,
-  GtkOSXApplicationAttentionType(..),
+  GtkosxApplicationAttentionType(..),
   applicationSetDockMenu,
   applicationSetDockIconPixbuf,
   applicationSetDockIconResource,
@@ -81,71 +80,65 @@ applicationNew = makeNewGObject mkApplication $ liftM castPtr $
 --
 applicationReady :: ApplicationClass self => self -> IO ()
 applicationReady self =
-    {#call unsafe gtk_osxapplication_ready#} (toApplication self)
-
--- |
---
-applicationCleanup :: ApplicationClass self => self -> IO ()
-applicationCleanup self =
-    {#call unsafe gtk_osxapplication_cleanup#} (toApplication self)
+    {#call unsafe gtkosx_application_ready#} (toApplication self)
 
 -- |
 --
 applicationSetUseQuartsAccelerators :: ApplicationClass self => self -> Bool -> IO ()
 applicationSetUseQuartsAccelerators self b =
-    {#call unsafe gtk_osxapplication_set_use_quartz_accelerators#} (toApplication self) (fromBool b)
+    {#call unsafe gtkosx_application_set_use_quartz_accelerators#} (toApplication self) (fromBool b)
 
 -- |
 --
 applicationGetUseQuartsAccelerators :: ApplicationClass self => self -> IO Bool
 applicationGetUseQuartsAccelerators self = liftM toBool $
-    {#call unsafe gtk_osxapplication_use_quartz_accelerators#} (toApplication self)
+    {#call unsafe gtkosx_application_use_quartz_accelerators#} (toApplication self)
 
 -- |
 --
 applicationSetMenuBar :: (ApplicationClass self, MenuShellClass menu) => self -> menu -> IO ()
 applicationSetMenuBar self menu =
-    {#call unsafe gtk_osxapplication_set_menu_bar#} (toApplication self) (toMenuShell menu)
+    {#call unsafe gtkosx_application_set_menu_bar#} (toApplication self) (toMenuShell menu)
 
 -- |
 --
 applicationSyncMenuBar :: ApplicationClass self => self -> IO ()
 applicationSyncMenuBar self =
-    {#call unsafe gtk_osxapplication_sync_menubar#} (toApplication self)
+    {#call unsafe gtkosx_application_sync_menubar#} (toApplication self)
 
 -- |
 --
 applicationInsertAppMenuItem :: (ApplicationClass self, WidgetClass menu_item) => self -> menu_item -> Int -> IO ()
 applicationInsertAppMenuItem self menu_item index =
-    {#call unsafe gtk_osxapplication_insert_app_menu_item#} (toApplication self) (toWidget menu_item) (fromIntegral index)
+    {#call unsafe gtkosx_application_insert_app_menu_item#} (toApplication self) (toWidget menu_item) (fromIntegral index)
 
 -- |
 --
 applicationSetWindowMenu :: (ApplicationClass self, MenuItemClass menuItem)
     => self -> menuItem -> IO ()
 applicationSetWindowMenu self menuItem =
-    {#call unsafe gtk_osxapplication_set_window_menu#} (toApplication self) (toMenuItem menuItem)
+    {#call unsafe gtkosx_application_set_window_menu#} (toApplication self) (toMenuItem menuItem)
 
 -- |
 --
 applicationSetHelpMenu :: (ApplicationClass self, MenuItemClass menuItem)
     => self -> menuItem -> IO ()
 applicationSetHelpMenu self menuItem =
-    {#call unsafe gtk_osxapplication_set_help_menu#} (toApplication self) (toMenuItem menuItem)
+    {#call unsafe gtkosx_application_set_help_menu#} (toApplication self) (toMenuItem menuItem)
 
-{#enum GtkOSXApplicationAttentionType {underscoreToCase} deriving (Eq,Show)#}
+{#enum GtkosxApplicationAttentionType {underscoreToCase} deriving (Eq,Show)#}
 
 -- |
 --
 applicationSetDockMenu :: (ApplicationClass self, MenuShellClass menu) => self -> menu -> IO ()
 applicationSetDockMenu self menu =
-    {#call unsafe gtk_osxapplication_set_dock_menu#} (toApplication self) (toMenuShell menu)
+    {#call unsafe gtkosx_application_set_dock_menu#} (toApplication self) (toMenuShell menu)
 
 -- |
 --
 applicationSetDockIconPixbuf :: (ApplicationClass self, PixbufClass pixbuf) => self -> Maybe pixbuf -> IO ()
 applicationSetDockIconPixbuf self mbPixbuf =
-    {#call unsafe gtk_osxapplication_set_dock_icon_pixbuf#} (toApplication self)
+    {#call unsafe gtkosx_application_set_dock_icon_pixbuf#} (toApplication self)
         (maybe (Pixbuf nullForeignPtr) toPixbuf mbPixbuf)
 
 -- |
@@ -155,52 +148,52 @@ applicationSetDockIconResource self name rType subdir =
     withCString name $ \namePtr ->
     withCString rType $ \typePtr ->
     withCString subdir $ \subdirPtr ->
-    {#call unsafe gtk_osxapplication_set_dock_icon_resource#} (toApplication self) namePtr typePtr subdirPtr
+    {#call unsafe gtkosx_application_set_dock_icon_resource#} (toApplication self) namePtr typePtr subdirPtr
 
 newtype AttentionRequestID = AttentionRequestID CInt
 
 -- |
 --
-applicationAttentionRequest :: ApplicationClass self => self -> GtkOSXApplicationAttentionType -> IO AttentionRequestID
+applicationAttentionRequest :: ApplicationClass self => self -> GtkosxApplicationAttentionType -> IO AttentionRequestID
 applicationAttentionRequest self rType = liftM AttentionRequestID $
-    {#call unsafe gtk_osxapplication_attention_request#} (toApplication self) (fromIntegral $ fromEnum rType)
+    {#call unsafe gtkosx_application_attention_request#} (toApplication self) (fromIntegral $ fromEnum rType)
 
 -- |
 --
 applicationCancelAttentionRequest :: ApplicationClass self => self -> AttentionRequestID -> IO ()
 applicationCancelAttentionRequest self (AttentionRequestID id) =
-    {#call unsafe gtk_osxapplication_cancel_attention_request#} (toApplication self) id
+    {#call unsafe gtkosx_application_cancel_attention_request#} (toApplication self) id
 
 -- |
 --
 applicationGetBundlePath :: IO String
 applicationGetBundlePath =
-    {#call unsafe quartz_application_get_bundle_path#} >>= peekCString
+    {#call unsafe gtkosx_application_get_bundle_path#} >>= peekCString
 
 -- |
 --
 applicationGetResourcePath :: IO String
 applicationGetResourcePath =
-    {#call unsafe quartz_application_get_resource_path#} >>= peekCString
+    {#call unsafe gtkosx_application_get_resource_path#} >>= peekCString
 
 -- |
 --
 applicationGetExecutablePath :: IO String
 applicationGetExecutablePath =
-    {#call unsafe quartz_application_get_executable_path#} >>= peekCString
+    {#call unsafe gtkosx_application_get_executable_path#} >>= peekCString
 
 -- |
 --
 applicationGetBundleId :: IO String
 applicationGetBundleId =
-    {#call unsafe quartz_application_get_bundle_id#} >>= peekCString
+    {#call unsafe gtkosx_application_get_bundle_id#} >>= peekCString
 
 -- |
 --
 applicationGetBundleInfo :: String -> IO String
 applicationGetBundleInfo key =
     withCString key $ \keyPtr ->
-    {#call unsafe quartz_application_get_bundle_info#} keyPtr >>= peekCString
+    {#call unsafe gtkosx_application_get_bundle_info#} keyPtr >>= peekCString
 
 -- |
 --
