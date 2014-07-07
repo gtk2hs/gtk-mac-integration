@@ -62,6 +62,7 @@ import Control.Monad	(liftM)
 import Data.Maybe    (fromMaybe)
 
 import System.Glib.FFI
+import System.Glib.UTFString
 import System.Glib.GObject              (objectNew, makeNewGObject)
 {#import System.Glib.Properties#}
 import System.Glib.Attributes
@@ -143,11 +144,12 @@ applicationSetDockIconPixbuf self mbPixbuf =
 
 -- |
 --
-applicationSetDockIconResource :: ApplicationClass self => self -> String -> String -> String -> IO ()
+applicationSetDockIconResource :: (ApplicationClass self, GlibString string)
+    => self -> string -> string -> string -> IO ()
 applicationSetDockIconResource self name rType subdir =
-    withCString name $ \namePtr ->
-    withCString rType $ \typePtr ->
-    withCString subdir $ \subdirPtr ->
+    withUTFString name $ \namePtr ->
+    withUTFString rType $ \typePtr ->
+    withUTFString subdir $ \subdirPtr ->
     {#call unsafe gtkosx_application_set_dock_icon_resource#} (toApplication self) namePtr typePtr subdirPtr
 
 newtype AttentionRequestID = AttentionRequestID CInt
@@ -166,34 +168,34 @@ applicationCancelAttentionRequest self (AttentionRequestID id) =
 
 -- |
 --
-applicationGetBundlePath :: IO String
+applicationGetBundlePath :: GlibString string => IO string
 applicationGetBundlePath =
-    {#call unsafe gtkosx_application_get_bundle_path#} >>= peekCString
+    {#call unsafe gtkosx_application_get_bundle_path#} >>= peekUTFString
 
 -- |
 --
-applicationGetResourcePath :: IO String
+applicationGetResourcePath :: GlibString string => IO string
 applicationGetResourcePath =
-    {#call unsafe gtkosx_application_get_resource_path#} >>= peekCString
+    {#call unsafe gtkosx_application_get_resource_path#} >>= peekUTFString
 
 -- |
 --
-applicationGetExecutablePath :: IO String
+applicationGetExecutablePath :: GlibString string => IO string
 applicationGetExecutablePath =
-    {#call unsafe gtkosx_application_get_executable_path#} >>= peekCString
+    {#call unsafe gtkosx_application_get_executable_path#} >>= peekUTFString
 
 -- |
 --
-applicationGetBundleId :: IO String
+applicationGetBundleId :: GlibString string => IO string
 applicationGetBundleId =
-    {#call unsafe gtkosx_application_get_bundle_id#} >>= peekCString
+    {#call unsafe gtkosx_application_get_bundle_id#} >>= peekUTFString
 
 -- |
 --
-applicationGetBundleInfo :: String -> IO String
+applicationGetBundleInfo :: GlibString string => string -> IO string
 applicationGetBundleInfo key =
-    withCString key $ \keyPtr ->
-    {#call unsafe gtkosx_application_get_bundle_info#} keyPtr >>= peekCString
+    withUTFString key $ \keyPtr ->
+    {#call unsafe gtkosx_application_get_bundle_info#} keyPtr >>= peekUTFString
 
 -- |
 --
@@ -217,6 +219,6 @@ willTerminate = Signal (connect_NONE__NONE "NSApplicationWillTerminate")
 
 -- |
 --
-openFile :: ApplicationClass self => Signal self (String -> IO ())
+openFile :: (ApplicationClass self, GlibString string) => Signal self (string -> IO ())
 openFile = Signal (connect_STRING__NONE "NSApplicationOpenFile")
 
