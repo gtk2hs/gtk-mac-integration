@@ -14,7 +14,7 @@
 #   FLAGS       for flag enumeration types (guint)
 #   FLOAT       for single-precision float types (gfloat)
 #   DOUBLE      for double-precision float types (gdouble)
-#   STRING      for string types (gchar*)
+#   GLIBSTRING  for string types (gchar*)
 #   BOXED       for boxed (anonymous but reference counted) types (GBoxed*)
 #   POINTER     for anonymous pointer types (gpointer)
 #   NONE        deprecated alias for VOID
@@ -45,4 +45,4 @@
 NONE:NONE
 NONE:BOXED,BOXED
 BOOLEAN:VOID
-VOID:STRING
+VOID:GLIBSTRING

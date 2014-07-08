@@ -220,5 +220,5 @@ willTerminate = Signal (connect_NONE__NONE "NSApplicationWillTerminate")
 -- |
 --
 openFile :: (ApplicationClass self, GlibString string) => Signal self (string -> IO ())
-openFile = Signal (connect_STRING__NONE "NSApplicationOpenFile")
+openFile = Signal (connect_GLIBSTRING__NONE "NSApplicationOpenFile")
 
