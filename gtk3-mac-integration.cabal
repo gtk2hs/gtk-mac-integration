@@ -62,5 +62,5 @@ Library
         x-Signals-Types: marshal.list
 
         x-c2hs-Header:  hs-gtk-mac-integration.h
-        pkgconfig-depends: gtk-mac-integration >=2.0.0
+        pkgconfig-depends: gtk-mac-integration-gtk3 >=2.0.0
 
