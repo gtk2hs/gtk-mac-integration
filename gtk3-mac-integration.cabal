@@ -1,5 +1,5 @@
 Name:           gtk3-mac-integration
-Version:        0.3.0.3
+Version:        0.3.1.0
 License:        LGPL-2.1
 License-file:   COPYING
 Copyright:      (c) 2001-2010 The Gtk2Hs Team
@@ -35,7 +35,7 @@ x-Types-Hierarchy:  hierarchy.list
 
 Source-Repository head
   type:         git
-  location:     https://github.com/gtk2hs/ige-mac-integration
+  location:     https://github.com/gtk2hs/gtk-mac-integration.git
 
 Library
         build-depends:  base >= 4 && < 5, array -any, containers -any, mtl -any,
@@ -48,6 +48,7 @@ Library
         exposed-modules:
           Graphics.UI.Gtk.OSX
           Graphics.UI.Gtk.OSX.Application
+          Graphics.UI.Gtk.OSX.Window
         other-modules:
           Graphics.UI.Gtk.OSX.Types
           Graphics.UI.Gtk.OSX.Signals
@@ -56,6 +57,7 @@ Library
 
         include-dirs:   .
         cpp-options:    -DDISABLE_DEPRECATED -U__BLOCKS__ -D__attribute__(A)=
+        c-sources:      Graphics/UI/Gtk/OSX/extra.m
 
         x-Signals-File:  Graphics/UI/Gtk/OSX/Signals.chs
         x-Signals-Modname: Graphics.UI.Gtk.OSX.Signals

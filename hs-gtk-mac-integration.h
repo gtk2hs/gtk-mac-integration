@@ -3,3 +3,4 @@
 #endif
 #include <gtkosxapplication.h>
 
+void gtk2hs_osx_allow_fullscreen(GdkWindow *wnd);
