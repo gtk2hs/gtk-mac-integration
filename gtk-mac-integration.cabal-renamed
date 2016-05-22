@@ -6,7 +6,7 @@ Copyright:      (c) 2001-2010 The Gtk2Hs Team
 Author:         Duncan Coutts, Peter Gavin, Axel Simon, Hamish Mackenzie
 Maintainer:     gtk2hs-users@sourceforge.net
 Build-Type:     Custom
-Cabal-Version:  >= 1.8.0
+Cabal-Version:  >= 1.24
 Stability:      provisional
 homepage:       http://www.haskell.org/gtk2hs/
 bug-reports:    http://hackage.haskell.org/trac/gtk2hs/
@@ -18,7 +18,6 @@ Description:    gtk-mac-integration helps integrate Gtk applications with the na
 Category:       Graphics
 Tested-With:    GHC == 7.2.2
 Extra-Source-Files: hs-gtk-mac-integration.h
-                    SetupWrapper.hs SetupMain.hs Gtk2HsSetup.hs
                     marshal.list
                     hierarchy.list
 
@@ -37,6 +36,11 @@ Source-Repository head
   type:         git
   location:     https://github.com/gtk2hs/gtk-mac-integration.git
 
+custom-setup
+  setup-depends: base >= 4.6,
+                 Cabal >= 1.24 && < 1.25,
+                 gtk2hs-buildtools >= 0.13.1.0 && < 0.14
+
 Library
         build-depends:  base >= 4 && < 5, array -any, containers -any, mtl -any,
                         glib  >=0.13.0.0 && <0.14,
@@ -53,7 +57,8 @@ Library
           Graphics.UI.Gtk.OSX.Types
           Graphics.UI.Gtk.OSX.Signals
 
-        extensions:     ForeignFunctionInterface
+        default-language:       Haskell2010
+        default-extensions:     ForeignFunctionInterface
 
         include-dirs:   .
         cpp-options:    -DDISABLE_DEPRECATED -U__BLOCKS__ -D__attribute__(A)=
