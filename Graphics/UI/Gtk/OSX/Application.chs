@@ -34,6 +34,7 @@ module Graphics.UI.Gtk.OSX.Application (
   applicationNew,
   applicationReady,
   applicationSetUseQuartsAccelerators,
+  applicationGetUseQuartsAccelerators,
   applicationSetMenuBar,
   applicationSyncMenuBar,
   applicationInsertAppMenuItem,
