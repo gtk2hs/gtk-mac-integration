@@ -34,7 +34,9 @@ module Graphics.UI.Gtk.OSX.Application (
   applicationNew,
   applicationReady,
   applicationSetUseQuartsAccelerators,
+  applicationSetUseQuartzAccelerators,
   applicationGetUseQuartsAccelerators,
+  applicationGetUseQuartzAccelerators,
   applicationSetMenuBar,
   applicationSyncMenuBar,
   applicationInsertAppMenuItem,
@@ -86,15 +88,21 @@ applicationReady self =
 
 -- |
 --
-applicationSetUseQuartsAccelerators :: ApplicationClass self => self -> Bool -> IO ()
-applicationSetUseQuartsAccelerators self b =
+applicationSetUseQuartzAccelerators :: ApplicationClass self => self -> Bool -> IO ()
+applicationSetUseQuartzAccelerators self b =
     {#call unsafe gtkosx_application_set_use_quartz_accelerators#} (toApplication self) (fromBool b)
+applicationSetUseQuartsAccelerators :: ApplicationClass self => self -> Bool -> IO ()
+applicationSetUseQuartsAccelerators = applicationSetUseQuartzAccelerators
+{-# DEPRECATED applicationSetUseQuartsAccelerators "instead of 'applicationSetUseQuartsAccelerators' use 'applicationSetUseQuartzAccelerators'" #-}
 
 -- |
 --
-applicationGetUseQuartsAccelerators :: ApplicationClass self => self -> IO Bool
-applicationGetUseQuartsAccelerators self = liftM toBool $
+applicationGetUseQuartzAccelerators :: ApplicationClass self => self -> IO Bool
+applicationGetUseQuartzAccelerators self = liftM toBool $
     {#call unsafe gtkosx_application_use_quartz_accelerators#} (toApplication self)
+applicationGetUseQuartsAccelerators :: ApplicationClass self => self -> IO Bool
+applicationGetUseQuartsAccelerators = applicationGetUseQuartzAccelerators
+{-# DEPRECATED applicationGetUseQuartsAccelerators "instead of 'applicationGetUseQuartsAccelerators' use 'applicationGetUseQuartzAccelerators'" #-}
 
 -- |
 --
