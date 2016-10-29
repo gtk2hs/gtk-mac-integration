@@ -1,5 +1,5 @@
 Name:           gtk-mac-integration
-Version:        0.3.3.0
+Version:        0.3.3.1
 License:        LGPL-2.1
 License-file:   COPYING
 Copyright:      (c) 2001-2010 The Gtk2Hs Team
@@ -61,7 +61,7 @@ Library
         default-extensions:     ForeignFunctionInterface
 
         include-dirs:   .
-        cpp-options:    -DDISABLE_DEPRECATED -U__BLOCKS__ -D__attribute__(A)=
+        cpp-options:    -DDISABLE_DEPRECATED -U__BLOCKS__ -D__attribute__(A)= -D_Nullable= -D_Nonnull=
         c-sources:      Graphics/UI/Gtk/OSX/extra.m
 
         x-Signals-File:  Graphics/UI/Gtk/OSX/Signals.chs
